@@ -154,11 +154,13 @@ class BigNumberTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals("3000000", BigNumber::toString(0.3e+7));
         $this->assertEquals("3000000", BigNumber::toString(3e+6));
         $this->assertEquals("3430000000", BigNumber::toString(3.43e+9));
+        $this->assertEquals("3430000000", BigNumber::toString("3.43e+9"));
         $this->assertEquals("1.61803398875", BigNumber::toString(1.61803398875e+0));
 
         $this->assertEquals("12", BigNumber::toString(1.2e+1));
         $this->assertEquals("12", BigNumber::toString(1.2e1));
         $this->assertEquals("0.12", BigNumber::toString(12e-2));
+        $this->assertEquals("0.12", BigNumber::toString("12e-2"));
 
         $this->assertEquals("191919", BigNumber::toString(new BigNumber(191919, scale: 0)));
         $this->assertEquals("19.919", BigNumber::toString(new BigNumber(19.919, scale: 3)));

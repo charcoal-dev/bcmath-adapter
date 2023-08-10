@@ -422,18 +422,17 @@ class BigNumber implements \Stringable
 
         // Floats must be checked for scientific E-notations
         if (is_float($value)) {
-            $floatAsString = strval($value);
-            // Look if scientific E-notation
-            if (preg_match('/e-/i', $floatAsString)) {
-                // Auto-detect decimals
-                $decimals = preg_split('/e-/i', $floatAsString);
-                $decimals = strlen($decimals[0]) + intval($decimals[1]);
-                return rtrim(number_format($value, $decimals, ".", ""), "0");
-            } elseif (preg_match('/e\+?/i', $floatAsString)) {
-                return number_format($value, 0, "", "");
-            }
+            $value = strval($value);
+        }
 
-            return $floatAsString;
+        // Resolve scientific notations
+        if (preg_match('/e-/i', $value)) {
+            // Auto-detect decimals
+            $decimals = preg_split('/e-/i', $value);
+            $decimals = strlen($decimals[0]) + intval($decimals[1]);
+            $value = rtrim(number_format(floatval($value), $decimals, ".", ""), "0");
+        } elseif (preg_match('/e\+?/i', $value)) {
+            $value = number_format(floatval($value), 0, "", "");
         }
 
         // Check with in String
